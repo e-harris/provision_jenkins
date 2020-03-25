@@ -39,4 +39,10 @@ Vagrant.configure("2") do |config|
     db.vm.synced_folder "environment/db", "/home/ubuntu/environment"
     db.vm.provision "shell", path: "environment/db/provision.sh", privileged: false
   end
+
+  config.vm.define "jenkins" do |jenkins|
+    jenkins.vm.box = "ubuntu/xenial64"
+    jenkins.vm.network "private_network", ip: "192.168.10.200"
+    jenkins.hostsupdater.aliases = ["jenkins.local"]
+  end
 end
